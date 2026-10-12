@@ -1,6 +1,6 @@
 # Meeting Copilot
 
-An macOS meeting assistant for live transcription, evidence-grounded follow-up questions, answer tracking and contextual research.
+A macOS meeting assistant for live transcription, evidence-grounded follow-up questions, answer tracking and contextual research.
 
 Use it for team planning, interviews, project reviews and decision discussions. Investment review is an [optional fictional example](examples/investment-discussion.md), not the default workflow.
 
