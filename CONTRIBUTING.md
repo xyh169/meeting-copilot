@@ -1,7 +1,14 @@
 # Contributing
 
-Use English for documentation, interface text, generated-analysis policies and public discussions. Keep the default workflow suitable for general meetings. Domain-specific scenarios belong in optional examples or imported rules.
+For a bug report, include your macOS version, the affected feature, steps to reproduce and the expected behavior. Remove credentials and meeting content from logs or screenshots before sharing them.
 
-Do not include real company/person names, customer material, meeting recordings, private documents, API keys, local settings, models or exported data in fixtures. Use synthetic names prefixed with `Fictional` and clearly mark examples as invented.
+For a pull request, describe the behavior changed and how you tested it. Add regression coverage with sample fixtures where appropriate. Run the relevant Python and native macOS tests:
 
-Run the Python tests and the macOS native tests relevant to your change. Stage your changes and run `scripts/privacy_check.py` before pushing. Explain the concrete behavior changed and its validation in the pull request. Never include a provider key in an issue or screenshot.
+```sh
+.venv/bin/python -m unittest discover -s tests -v
+zsh scripts/test_native.sh
+```
+
+Keep credentials, runtime settings and local meeting files out of commits. `scripts/privacy_check.py` checks staged files for these artifacts and common credential patterns.
+
+New meeting scenarios can be added as Markdown rules. Keep scenario-specific assumptions within their own rules so they can be selected independently.

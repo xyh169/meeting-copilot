@@ -1,30 +1,25 @@
-# Privacy
+# Data and storage
 
-## What the public repository contains
+## Transcription and analysis
 
-Application source, English documentation, generic rules, automated tests and fictional examples. It starts with a new Git history. Original configurations, private documents, real recordings/transcripts, meeting recovery snapshots, logs, evaluation output, models, virtual environments and packaged applications were excluded rather than anonymized and published.
+Apple and Qwen transcription run on your Mac. The app sends no raw audio to the analysis API.
 
-All example business participants, people, figures, dates and events were newly invented. No original investment files or research rule text were copied into the examples. Software and provider names identify actual dependencies, not business examples.
+Cloud analysis sends the configured provider the text needed for the selected feature: transcript excerpts, meeting background, terminology, questions, answers and source material. Local Ollama analysis uses its localhost service.
 
-## Credentials
+## Research
 
-No credential is distributed. Each user supplies their own API key. The Meeting Copilot namespace is separate from the legacy project's namespace and does not retrieve its credentials. Environment overrides are local only. The repository never includes Keychain exports, shell history or `.env` files.
+Online research sends search queries and retrieves public pages. The research policy asks the model to use generic topic terms, but this is a model instruction rather than a technical filter. You can disable web search for discussions that should stay local.
 
-Preparing or installing this project does not require deleting keys belonging to any earlier app. The namespaces are independent.
+Connected local documents are read-only inputs. Matching excerpts are sent to cloud research only when you enable local excerpt sharing in Research settings.
 
-OBS passwords are generated or entered locally and stored in an ignored owner-only configuration file. Never commit runtime configurations. Runtime API responses may show whether a key is configured, but never its value.
+## Credentials and local files
 
-## Data flow
+API keys are saved in macOS Keychain. You can also supply a key through `MEETING_COPILOT_API_KEY`. Leaving the key field blank keeps your saved key; **Remove key** deletes it.
 
-- Apple/Qwen speech transcription stays on the Mac; raw audio is not submitted to the analysis API by this app.
-- A cloud analysis provider receives the text needed for the configured feature: transcript excerpts, background, terminology, existing questions/answers and source material.
-- Local Ollama analysis sends requests to its localhost service.
-- Online research sends search queries and fetches public pages. The model policy requires generic public terms, but this is a prompt-level instruction, not a formal guarantee that model-generated queries cannot contain sensitive text. Keep web search off for confidential meetings unless you have reviewed this tradeoff.
-- Local document excerpts are read-only inputs and are shared with cloud research only when the sharing setting permits it.
-- Exports, drafts and recordings may contain sensitive information from your own use. Store and share them deliberately.
+OBS settings are saved in `obs_audio_config.json` beside the backend. This file can contain your OBS password and has owner-only permissions.
 
-There is no telemetry or bundled external account. The local backend binds to the loopback interface. It is intended for a trusted local desktop, not internet hosting.
+Meeting drafts and the research index are stored under `~/Library/Application Support/MeetingCopilot`. Logs are stored under `~/Library/Logs/MeetingCopilot`. Source builds use `private-data/projects` for local document research unless you configure another directory. Recordings default to `~/Movies/OBS Audio Meetings`, and you choose where to save exports.
 
-## Publication checks
+Drafts, exports and recordings contain the content of your meetings. Review them before sharing.
 
-`scripts/privacy_check.py` scans staged Git blobs, rejects private/runtime artifacts and reports credential patterns and personal paths without printing matched secrets. Manual review also checks examples and generic rules. The scanner is heuristic; review your own additions before publishing.
+The backend listens on localhost and is intended for desktop use. The app has no telemetry.

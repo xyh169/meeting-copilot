@@ -2,7 +2,7 @@
 
 A macOS meeting assistant for live transcription, evidence-grounded follow-up questions, answer tracking and contextual research.
 
-Use it for team planning, interviews, project reviews and decision discussions. Investment review is an [optional fictional example](examples/investment-discussion.md), not the default workflow.
+Use it for team planning, interviews, project reviews and decision discussions.
 
 ## Features
 
@@ -37,7 +37,7 @@ open "Meeting Copilot.app"
 
 The app is locally signed for development. macOS may require you to allow it in Privacy & Security before opening it. Grant microphone, screen/system audio and speech recognition permissions as needed for your chosen sources.
 
-On first launch, open **AI settings** and enter your own provider URL, model name and API key, or choose **Local model** and enter the name of your installed Ollama model. No model name is preselected and no author credentials are distributed.
+On first launch, open **AI settings** and enter your own provider URL, model name and API key, or choose **Local model** and enter the name of your installed Ollama model.
 
 See [setup instructions](docs/SETUP.md) for optional components and configuration.
 
@@ -60,28 +60,24 @@ Turning off question updates preserves existing Q&A and pauses answer updates an
 
 Default meeting rules live in [`rules/interview`](rules/interview); research rules live in [`research-rules.md`](research-rules.md). Select a scenario from the meeting menu. Import a `.md` file to create your own local rule copy, or open a rule from the menu to edit it.
 
-The [`examples`](examples/README.md) directory contains only newly written synthetic material. Every business, person, amount, deadline and event in those examples is fictional and explicitly marked. Import [`examples/investment-scenario.md`](examples/investment-scenario.md) only if you want the optional investment demonstration.
+Browse the [team planning](examples/team-planning.md) and [investment discussion](examples/investment-discussion.md) examples to see how transcripts become notes and follow-up questions. Import the [investment review scenario](examples/investment-scenario.md) to tailor questions to that use case.
 
-## Privacy and credentials
+## Data and storage
 
-No API keys, OBS passwords, real meeting recordings, transcripts, private company files, databases, logs, models or original Git history are included.
+Transcription runs locally. API keys are saved in macOS Keychain, and meeting drafts and exports are saved on your Mac.
 
-API credentials are entered by each user and stored in that user's macOS Keychain under `io.github.xyh169.meeting-copilot.reasoning-api`. The app does not read the earlier investment app's Keychain entries. Alternatively, supply `MEETING_COPILOT_API_KEY` in your local environment. Do not commit it.
+When you choose a cloud analysis provider, it receives the text needed for analysis. Research can also search public sources and use documents you connect. Local document excerpts are shared with cloud research only when you enable that option.
 
-Audio is transcribed locally. Cloud analysis sends the configured provider the text required for analysis, including transcript, background, terminology, Q&A and source excerpts. Matching local document excerpts are sent to cloud research only if the sharing option is enabled. Public queries use generic topic terms; review your data and provider choice before enabling online features.
-
-Runtime configuration, local data and exports are excluded by `.gitignore`. See [privacy details](docs/PRIVACY.md) and the [publication audit](docs/PUBLICATION.md).
+See [data handling details](docs/PRIVACY.md) for storage locations and online feature settings.
 
 ## Development
 
 ```sh
 .venv/bin/python -m unittest discover -s tests -v
 zsh scripts/test_native.sh
-git add .
-.venv/bin/python scripts/privacy_check.py
 ```
 
-The backend binds to `127.0.0.1:8766` to isolate it from the earlier application. The browser page is the optional OBS recording settings panel; the native app provides transcription, questions and research. To open the recording panel separately:
+The backend binds to `127.0.0.1:8766`. The browser page is the optional OBS recording settings panel; the native app provides transcription, questions and research. To open the recording panel separately:
 
 ```sh
 .venv/bin/python obs_audio_web_gui.py

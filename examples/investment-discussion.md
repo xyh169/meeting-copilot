@@ -1,10 +1,10 @@
-# Fictional investment discussion
+# Investment discussion
 
-This is an optional example, not the default product workflow. Every name, number, claim and event is invented. This file contains no real deal or company information.
+Sample meeting data is fictional.
 
 ## Background
 
-Fictional Company Beta is exploring a synthetic inspection tool. Fictional Participant C represents the fictional team; Fictional Participant D asks questions. The demonstration budget is 25,000 fictional currency units. There is no actual investment offer.
+Fictional Company Beta is exploring a synthetic inspection tool. Fictional Participant C represents the fictional team; Fictional Participant D asks questions. The demonstration budget is 25,000 fictional currency units.
 
 ## Transcript
 

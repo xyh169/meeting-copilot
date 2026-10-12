@@ -1,6 +1,6 @@
-# Fictional team planning meeting
+# Team planning
 
-All names, facts and dates below are invented demonstration data.
+Sample meeting data is fictional.
 
 ## Background
 

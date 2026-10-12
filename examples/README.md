@@ -1,9 +1,7 @@
-# Fictional examples
+# Examples
 
-Every company, participant, amount, deadline and event in these examples is invented solely for demonstration. Names use the `Fictional` prefix and are not references to real organizations or people. No material was copied from a real meeting, customer file or private project.
+Sample meeting data is fictional.
 
-- [Team planning](team-planning.md): the default general meeting workflow.
-- [Investment discussion](investment-discussion.md): an optional specialized scenario.
-- [Investment scenario rules](investment-scenario.md): import this Markdown file through the meeting scenario menu to use the optional example.
-
-Technology and service names in setup documentation identify software dependencies; they are not fictional business participants.
+- [Team planning](team-planning.md): clarify decisions, owners and next steps.
+- [Investment discussion](investment-discussion.md): distinguish claims, evidence and proposed commitments.
+- [Investment review scenario](investment-scenario.md): import this Markdown rule through the meeting scenario menu.

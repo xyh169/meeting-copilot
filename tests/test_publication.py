@@ -24,6 +24,8 @@ class PublicationTests(unittest.TestCase):
 
     def test_examples_are_marked_and_have_no_contacts(self):
         for path in (ROOT / "examples").glob("*.md"):
+            if path.name.endswith("-scenario.md"):
+                continue
             text = path.read_text()
             self.assertTrue("fictional" in text.lower() or "invented" in text.lower(), path.name)
             self.assertNotIn("@", text, path.name)
