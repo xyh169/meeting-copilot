@@ -71,7 +71,7 @@ final class ResearchModel: ObservableObject {
             UserDefaults.standard.set(automatic, forKey: "researchAutomaticTopics")
             if !automatic && automaticRequest { cancel() }
             resetDiscussion()
-            status = automatic ? "Waiting for more than3minutes of new discussion" : "Auto-update paused"
+            status = automatic ? "Waiting for more than 3 minutes of new discussion" : "Auto-update paused"
         }
     }
     @Published var gateUsage = ResearchUsage(calls: 0, input_tokens: 0, output_tokens: 0)
@@ -262,7 +262,7 @@ final class ResearchModel: ObservableObject {
     var markdown: String {
         var lines = ["\n## Research and Q&A\n"]
         if gateUsage.calls > 0 {
-            lines.append("Topic assessment (full research not started): \(gateUsage.calls) callsAPIresponses; input \(gateUsage.input_tokens) / Output \(gateUsage.output_tokens)")
+            lines.append("Topic assessment (full research not started): \(gateUsage.calls) model requests; input \(gateUsage.input_tokens) / Output \(gateUsage.output_tokens)")
         }
         for report in orderedReports {
             lines += ["### \(report.topic)", report.created_at, "Question: \(report.question.isEmpty ? "Automatic research" : report.question)"]
@@ -283,7 +283,7 @@ final class ResearchModel: ObservableObject {
                 }
                 for source in revision.sources { lines.append("- [\(source.id)] \(source.title) · \(source.url)") }
             }
-            lines += ["APIInput \(report.usage.input_tokens) / Output \(report.usage.output_tokens)", ""]
+            lines += ["API input \(report.usage.input_tokens) / Output \(report.usage.output_tokens)", ""]
         }
         return lines.joined(separator: "\n")
     }
@@ -319,11 +319,11 @@ struct ResearchPanel: View {
                 Text("Research").font(.headline)
                 Text(research.status).font(.caption).foregroundStyle(.secondary).lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .help(research.status + "\nSkipped full research: \(research.gateUsage.calls) callsAPIresponses; input \(research.gateUsage.input_tokens) / Output \(research.gateUsage.output_tokens)")
+                    .help(research.status + "\nSkipped full research: \(research.gateUsage.calls) model requests; input \(research.gateUsage.input_tokens) / Output \(research.gateUsage.output_tokens)")
                 if research.busy { ProgressView().controlSize(.small) }
                 Button { research.automatic.toggle() } label: {
                     Image(systemName: research.automatic ? "pause.fill" : "play.fill")
-                }.help(research.automatic ? "Pause research updates; recording and questions continue" : "Resume auto-update and collect more than3minutes of discussion")
+                }.help(research.automatic ? "Pause research updates; recording and questions continue" : "Resume auto-update and collect more than 3 minutes of discussion")
                 Button { research.stopUpdates() } label: { Image(systemName: "stop.fill") }
                     .disabled(!research.automatic && !research.busy)
                     .help("Stop this research and disable auto-update; requests already sent may still be billed")
@@ -387,7 +387,7 @@ struct ResearchPanel: View {
                             DisclosureGroup("Search scope and evidence (\(report.sources.count))") {
                                 VStack(alignment: .leading, spacing: 8) {
                                     ForEach(report.notices, id: \.self) { Text($0).font(.caption).foregroundStyle(.secondary) }
-                                    Text("ResearchAPI · Input \(report.usage.input_tokens) / Output \(report.usage.output_tokens)").font(.caption)
+                                    Text("Research API · Input \(report.usage.input_tokens) / Output \(report.usage.output_tokens)").font(.caption)
                                     ForEach(report.sources) { source in
                                         Text("[\(source.id)] \(source.title) · \(source.date) · \(source.kind == "web" ? (source.full_text == true ? "Page excerpt" : "Search snippet only") : researchStatus(source.status))")
                                             .font(.caption).fontWeight(.semibold)
@@ -435,10 +435,10 @@ struct ResearchPanel: View {
         .sheet(isPresented: $showsSettings) {
             VStack(alignment: .leading, spacing: 18) {
                 Text("Research settings").font(.headline)
-                Toggle("Research new topics automatically / New application", isOn: $research.automatic)
+                Toggle("Research new topics automatically", isOn: $research.automatic)
                 Toggle("Search public sources online", isOn: $research.webEnabled)
                 Toggle("Allow matching local excerpts to be sent to the configured cloud model", isOn: $research.shareLocal)
-                Text("New substantive discussion on the same topic exceeds3minutes before automatic research. Silence, pauses and background waiting do not count. Recording, transcription and questions continue. Manual questions and refresh bypass this threshold; sent requests may still be billed.")
+                Text("New substantive discussion on the same topic exceeds 3 minutes before automatic research. Silence, pauses and background waiting do not count. Recording, transcription and questions continue. Manual questions and refresh bypass this threshold; sent requests may still be billed.")
                     .font(.caption).foregroundStyle(.secondary)
                 HStack { Spacer(); Button("Done") { showsSettings = false } }
             }.padding(24).frame(width: 460)

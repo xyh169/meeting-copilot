@@ -1,6 +1,12 @@
 # Setup
 
-## Native app
+## Download edition
+
+Download the DMG from [Releases](https://github.com/xyh169/meeting-copilot/releases/latest), drag Meeting Copilot.app into Applications and open it. Python and the backend dependencies are included.
+
+On first launch, backend files and editable rules are installed into `~/Library/Application Support/io.github.xyh169.meeting-copilot/Workspace`. Use the rule menus to open this folder and its files. Existing Markdown rules are preserved when the App is updated.
+
+## Source edition
 
 Use an Apple Silicon Mac with macOS 26+, a matching macOS SDK, and Python 3.12. Create `.venv`, install `requirements.txt`, run `MeetingCopilotApp/build_app.sh`, and open `Meeting Copilot.app`. The build uses local development signing; it is not Apple notarization.
 
@@ -38,7 +44,7 @@ For knowledge graph search, point `COPILOT_PIKG_DB` to a database using the supp
 
 ## Optional Qwen transcription
 
-The native default is Apple transcription. The optional native Qwen bridge expects a `.venv-asr` environment and an already-downloaded `mlx-community/Qwen3-ASR-1.7B-bf16` model in the Hugging Face cache:
+The native default is Apple transcription. For the download edition, install the optional Qwen environment in the Workspace folder shown above; for a source build, use the project directory. The native Qwen bridge expects a `.venv-asr` environment and an already-downloaded `mlx-community/Qwen3-ASR-1.7B-bf16` model in the Hugging Face cache:
 
 ```sh
 python3.12 -m venv .venv-asr

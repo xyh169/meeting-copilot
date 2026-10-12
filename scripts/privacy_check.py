@@ -6,6 +6,7 @@ import sys
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+REVIEWED_SCREENSHOTS = {"docs/images/main-window.jpg", "docs/images/ai-settings.jpg"}
 BLOCKED_SUFFIXES = {
     ".wav", ".mp3", ".m4a", ".mp4", ".mkv", ".mov", ".aiff",
     ".sqlite", ".db", ".jsonl", ".safetensors", ".gguf", ".onnx",
@@ -46,6 +47,10 @@ def main():
         blob = subprocess.run(
             ["git", "show", ":" + name], cwd=ROOT, capture_output=True, check=True
         ).stdout
+        if name in REVIEWED_SCREENSHOTS:
+            if not blob.startswith(b"\xff\xd8\xff"):
+                errors.append(f"{name}: expected reviewed JPEG screenshot")
+            continue
         try:
             content = blob.decode("utf-8")
         except UnicodeDecodeError:
@@ -58,7 +63,7 @@ def main():
     if errors:
         print("\n".join(errors))
         return 1
-    print(f"Checked {len(files)} indexed text files: no blocked files or secret patterns.")
+    print(f"Checked {len(files)} indexed files: no blocked files or secret patterns.")
     print("This heuristic does not replace manual review of private text and rules.")
     return 0
 

@@ -18,7 +18,7 @@ API keys are saved in macOS Keychain. You can also supply a key through `MEETING
 
 OBS settings are saved in `obs_audio_config.json` beside the backend. This file can contain your OBS password and has owner-only permissions.
 
-Meeting drafts and the research index are stored under `~/Library/Application Support/MeetingCopilot`. Logs are stored under `~/Library/Logs/MeetingCopilot`. Source builds use `private-data/projects` for local document research unless you configure another directory. Recordings default to `~/Movies/OBS Audio Meetings`, and you choose where to save exports.
+Meeting drafts and the research index are stored under `~/Library/Application Support/MeetingCopilot`. Logs are stored under `~/Library/Logs/MeetingCopilot`. Download builds keep the backend and editable rules under `~/Library/Application Support/io.github.xyh169.meeting-copilot/Workspace`. Local document search uses `private-data/projects` inside the workspace; source builds use `private-data/projects` for local document research unless you configure another directory. Recordings default to `~/Movies/OBS Audio Meetings`, and you choose where to save exports.
 
 Drafts, exports and recordings contain the content of your meetings. Review them before sharing.
 

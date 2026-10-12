@@ -7,12 +7,16 @@ CONTENTS="$OUTPUT_APP/Contents"
 
 mkdir -p "$CONTENTS/MacOS" "$CONTENTS/Resources"
 cp "$SCRIPT_DIR/Info.plist" "$CONTENTS/Info.plist"
+OPTIMIZATION_FLAGS=()
 if [[ "${COPILOT_PORTABLE_BUILD:-0}" != "1" ]]; then
   /usr/libexec/PlistBuddy -c "Add :CopilotSourceDirectory string ${SCRIPT_DIR:h}" "$CONTENTS/Info.plist"
+else
+  OPTIMIZATION_FLAGS=(-O)
 fi
 
 xcrun swiftc \
   -swift-version 5 \
+  "${OPTIMIZATION_FLAGS[@]}" \
   -parse-as-library \
   -target arm64-apple-macos26.0 \
   -framework AppKit \
